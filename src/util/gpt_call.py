@@ -1,12 +1,13 @@
 from functools import cached_property
 import os
 from dotenv import load_dotenv
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 from retry import retry
 
 
 class OpenAIClient:
-
     SINGLETON_CLIENT = None
 
     @cached_property
@@ -27,15 +28,12 @@ class OpenAIClient:
     @retry(tries=3, delay=3.0)
     def get_completion(self, prompt: str, max_tokens: int = 128, n: int = 1):
         load_dotenv()
-        openai.api_key = os.getenv("OPENAI_API_KEY")
 
-        response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=prompt,
-            max_tokens=max_tokens,
-            temperature=0.9,
-            n=n,
-        )
+        response = client.completions.create(model="davinci-002",
+                                             prompt=prompt,
+                                             max_tokens=max_tokens,
+                                             temperature=0.9,
+                                             n=n)
         return response
 
 
