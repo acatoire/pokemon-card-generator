@@ -1,0 +1,28 @@
+{
+  "index": 2,
+  "name": "Mr Merceron",
+  "description": "Toujours a l'heure et présent",
+  "element": "Fire",
+  "rarity": "uncommon",
+  "rarity_index": 1,
+  "hp": 60,
+  "abilities": [
+    {
+      "name": "Discipline",
+      "description": "Augmente la concentration et la motivation des Pokémon de votre banc",
+      "element": "Fire",
+      "cost": 1,
+      "is_mixed_element": false,
+      "power": 30
+    },
+    {
+      "name": "Encouragement",
+      "description": "Tous les Pokémon de votre banc récupèrent un peu de leurs points de vie",
+      "element": "Neutral",
+      "cost": 3,
+      "is_mixed_element": false,
+      "power": 100
+    }
+  ],
+  "image_prompt": "Examples Biocham Glurignis::0 a chibi young fire-type rabbit pokemon::1.8, holding an dark axe, in a volcano environment, lava texture background, anime chibi drawing style, pastel background --niji --ar 3:2",
+  "image_file": "mr_merceron.jepg"}
