@@ -12,7 +12,7 @@ DEFAULT_PATH = "data/ability_names.json"
 
 def get_ability_name(ability: Ability) -> str:
     key = ability.ability_key
-    with open(DEFAULT_PATH, "r") as f:
+    with open(DEFAULT_PATH, 'r', encoding='utf-8') as f:
         ability_name_map = json.load(f)
 
     if key in ability_name_map:

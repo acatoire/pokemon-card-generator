@@ -38,7 +38,7 @@ def render_cards(collection_path: str):
         if not card_path.suffix == ".json":
             continue
 
-        with open(card_path) as f:
+        with open(card_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
             card = card_from_json(data)
             card_image = render_card(card, collection_path)
