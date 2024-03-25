@@ -1,3 +1,5 @@
+
+
 from dataclasses import dataclass
 from functools import cached_property
 import math
@@ -11,9 +13,10 @@ CIRCLE_UNICODE = "●"
 class Ability:
 
     name: str
+    description: str
     element: Element
-    cost: int = 1  #  Between 1 and 4
-    is_mixed_element: bool = False  #  Whether the ability is part neutral.
+    cost: int = 1  # Between 1 and 4
+    is_mixed_element: bool = False  # Whether the ability is part neutral.
 
     @cached_property
     def power(self):
@@ -60,6 +63,7 @@ class Ability:
                 cost_str += f"{NEUTRAL.with_ascii_color(CIRCLE_UNICODE)} "
 
         message = f"{self.name} ({self.element.ascii_name()})\n"
+        message += f"{self.description}\n"
         message += f"  Cost: {cost_str}\n"
         message += f"  Power: {self.power}\n"
         return message
@@ -74,6 +78,7 @@ class Ability:
     def to_json(self):
         return {
             "name": self.name,
+            "description": self.description,
             "element": self.element.name,
             "cost": self.cost,
             "is_mixed_element": self.is_mixed_element,

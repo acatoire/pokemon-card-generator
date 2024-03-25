@@ -56,7 +56,7 @@ def generate_all_ability_names_to_file(path: str, elements: list[Element]) -> li
         ability_name_map[ability.ability_key] = unique_abilities
         all_ability_names.update(unique_abilities)
 
-        # Save each step so we don't lose progress if something goes wrong.
+        # Save each step, so we don't lose progress if something goes wrong.
         with open(path, "w") as f:
             json.dump(ability_name_map, f, indent=2)
 

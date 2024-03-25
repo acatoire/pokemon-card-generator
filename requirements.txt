@@ -1,4 +1,4 @@
-pillow
-openai
+pillow # To render the card
+openai # To generate cards text and image
 python-dotenv
 retry

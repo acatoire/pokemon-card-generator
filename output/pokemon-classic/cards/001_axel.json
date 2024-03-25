@@ -1,15 +1,15 @@
 {
   "index": 1,
   "name": "Axel",
-  "description": "Toujours a l'heure et présent",
-  "element": "Electric",
+  "description": "Hey, tu n'aurait pas cet outils.",
+  "element": "ELECTRIC",
   "rarity": "uncommon",
   "rarity_index": 1,
-  "hp": 60,
+  "hp": 120,
   "abilities": [
     {
       "name": "Apnée",
-      "description": "Stop pour 1 tour",
+      "description": "Est inatteignable pendant le tour prochain, car sous l'eau.",
       "element": "WATER",
       "cost": 1,
       "is_mixed_element": false,
@@ -17,12 +17,12 @@
     },
     {
       "name": "Bricolage",
-      "description": "Fabrique...",
+      "description": "Peux reparer ou bricoler n'importe quoi.",
       "element": "FIGHTING",
       "cost": 1,
       "is_mixed_element": false,
       "power": 100
     }
   ],
-  "image_prompt": "Examples Biocham Glurignis::0 a chibi young fire-type rabbit pokemon::1.8, holding an dark axe, in a volcano environment, lava texture background, anime chibi drawing style, pastel background --niji --ar 3:2",
+  "image_prompt": "",
   "image_file": "axel.png"}

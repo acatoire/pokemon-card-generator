@@ -27,6 +27,10 @@ STATUS_Y_POSITION = 568
 STATUS_X_GAP = 82
 STATUS_SIZE = 20
 
+NAME_ABILITY_H = 24
+DESCRIPTION_ABILITY_H = 12
+DESCRIPTION_MAX_LEN = 45
+
 
 def render_cards(collection_path: str):
     card_path = pathlib.Path(collection_path, "cards")
@@ -179,18 +183,69 @@ def render_card(card: Card, collection_path: str):
 
 
 def render_ability(ability: Ability):
-    ability_image = Image.new("RGBA", (ABILITY_WIDTH, ABILITY_HEIGHT), (0, 0, 0, 0))
-    cost_image = render_element_cost(ability.costs_as_elements)
-    ability_image.paste(cost_image, (0, 0), cost_image)
+    ability_image = Image.new("RGBA",
+                              (ABILITY_WIDTH, ABILITY_HEIGHT),
+                              (0, 0, 0, 0))
 
-    # Ability name description.
-    name_text_position = (ABILITY_WIDTH // 2, ABILITY_HEIGHT // 2)
-    name_font = ImageFont.truetype("resources/font/Cabin-Bold.ttf", 24)
+    # Ability cost
+    cost_image = render_element_cost(ability.costs_as_elements)
+    ability_image.paste(cost_image,
+                        (0, 0),
+                        cost_image)
+
+    # Ability name.
+    name_text_position = (ABILITY_WIDTH // 2,
+                          ABILITY_HEIGHT // 4)
+    name_font = ImageFont.truetype("resources/font/Cabin-Bold.ttf",
+                                   NAME_ABILITY_H)
     name_text = ability.name
     draw = ImageDraw.Draw(ability_image)
-    draw.text(
-        name_text_position, name_text, font=name_font, fill=(0, 0, 0), anchor="mm"
-    )
+    draw.text(name_text_position,
+              name_text,
+              font=name_font,
+              fill=(0, 0, 0),
+              anchor="mm"
+              )
+
+    # Ability description.
+    description_text_position = (ABILITY_WIDTH // 2,
+                                 name_text_position[1] + DESCRIPTION_ABILITY_H * 2)
+    description_font = ImageFont.truetype("resources/font/Cabin-Bold.ttf",
+                                          DESCRIPTION_ABILITY_H)
+    description_text = ability.description
+
+    # Manage long description
+    # TODO manage 3 lines
+    if len(description_text) < DESCRIPTION_MAX_LEN:
+        # Single lign description
+        draw.text(description_text_position,
+                  description_text,
+                  font=description_font,
+                  fill=(0, 0, 0),
+                  anchor="mm"
+                  )
+    else:
+        # Dual lign description
+        # Manage to cut on space
+        cut_index = description_text[:DESCRIPTION_MAX_LEN].rfind(' ')
+
+        # Draw line 1
+        draw.text(description_text_position,
+                  description_text[:cut_index],
+                  font=description_font,
+                  fill=(0, 0, 0),
+                  anchor="mm"
+                  )
+
+        # Draw line 2
+        description_text_position_lign2 = (description_text_position[0],
+                                           description_text_position[1] + DESCRIPTION_ABILITY_H)
+        draw.text(description_text_position_lign2,
+                  description_text[cut_index + 1:],
+                  font=description_font,
+                  fill=(0, 0, 0),
+                  anchor="mm"
+                  )
 
     # Draw the ability power text.
     power_text_position = (ABILITY_WIDTH - 12, ABILITY_HEIGHT // 2)
@@ -208,9 +263,10 @@ def render_ability(ability: Ability):
 
 def render_element_cost(elements: list[str]):
     cost = len(elements)
-    cost_canvas = Image.new(
-        "RGBA", (ABILITY_COST_WIDTH, ABILITY_HEIGHT), (255, 255, 255, 0)
-    )
+    cost_canvas = Image.new("RGBA",
+                            (ABILITY_COST_WIDTH, ABILITY_HEIGHT),
+                            (255, 255, 255, 0)
+                            )
 
     icon_positions = []
 
@@ -292,6 +348,7 @@ def render_status_element(card: Card, image: Image, element: Element, x_position
 
 
 def card_from_json(data: dict) -> Card:
+
     card = Card(
         index=data["index"],
         name=data["name"],
@@ -300,17 +357,23 @@ def card_from_json(data: dict) -> Card:
         rarity=PokemonRarity.get_rarity_by_name(data["rarity"]),
         hp=data["hp"],
     )
+
     card.abilities = [ability_from_json(ability) for ability in data["abilities"]]
+
     return card
 
 
 def ability_from_json(data: dict) -> Ability:
-    return Ability(
+
+    ability = Ability(
         name=data["name"],
+        description=data["description"],
         element=PokemonElements.get_element_by_name(data["element"]),
         cost=data["cost"],
         is_mixed_element=data["is_mixed_element"],
     )
+
+    return ability
 
 
 def main():

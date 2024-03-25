@@ -1,0 +1,28 @@
+{
+  "index": 2,
+  "name": "Nelly",
+  "description": "Toujours a l'heure et présent",
+  "element": "PSYCHIC",
+  "rarity": "uncommon",
+  "rarity_index": 1,
+  "hp": 60,
+  "abilities": [
+    {
+      "name": "Potion revigorante",
+      "description": "Nelly administre une potion spéciale à un autre pokemon Pokémon, lui rendant 150 PV.",
+      "element": "PSYCHIC",
+      "cost": 1,
+      "is_mixed_element": false,
+      "power": 30
+    },
+    {
+      "name": "Gestionnaire financier",
+      "description": "Nelly utilise sa compétence financière pour récupérer 3 objets au hasard du deck.",
+      "element": "PSYCHIC",
+      "cost": 2,
+      "is_mixed_element": false,
+      "power": 90
+    }
+  ],
+  "image_prompt": "",
+  "image_file": "nelly.png"}
